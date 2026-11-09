@@ -1,0 +1,174 @@
+/* Simple Dark Mode for Hacker News.
+   Chrome injects this file before the page is drawn (manifest css + document_start).
+   content.js adds .hnn-off (also before the first draw) when the mode is Light,
+   or System while the OS is in light mode.
+
+   Palette: warm dark greys that echo HN's cream (#f6f6ef), off-white text instead of
+   pure white, a softened orange for text accents, and comment fade shades worked out
+   from the same proportions HN uses in light mode. All body text passes WCAG AA (4.5:1). */
+
+html:not(.hnn-off) {
+  --hnn-bg: #161614;        /* page edges */
+  --hnn-surface: #1c1c1a;   /* main column (HN's cream) */
+  --hnn-raised: #262521;    /* header, code, inputs */
+  --hnn-border: #3a3934;
+  --hnn-text: #e4e2d9;      /* HN's black text: 13:1 */
+  --hnn-title: #ecebe4;     /* story titles: 14:1 */
+  --hnn-muted: #9a988f;     /* HN's #828282 grey: 5.9:1 */
+  --hnn-visited: #8a877f;   /* 4.7:1 */
+  --hnn-brand: #ff6600;     /* HN orange, for lines and the logo */
+  --hnn-accent: #ff8a4c;    /* softened orange for text, easier on the eyes */
+  color-scheme: dark;
+  background: var(--hnn-bg) !important;
+}
+
+html:not(.hnn-off) body {
+  background: var(--hnn-bg) !important;
+  color: var(--hnn-muted) !important;
+}
+
+/* Main column and anything else using the cream background */
+html:not(.hnn-off) table[bgcolor],
+html:not(.hnn-off) td[bgcolor],
+html:not(.hnn-off) #hnmain {
+  background: var(--hnn-surface) !important;
+}
+
+/* Header bar: dark, with an orange line instead of a full orange block */
+html:not(.hnn-off) #hnmain > tbody > tr:first-child > td[bgcolor] {
+  background: var(--hnn-raised) !important;
+  border-bottom: 2px solid var(--hnn-brand) !important;
+}
+html:not(.hnn-off) img[src$="y18.svg"] {
+  border-color: var(--hnn-brand) !important;
+}
+html:not(.hnn-off) .pagetop,
+html:not(.hnn-off) .pagetop a:link,
+html:not(.hnn-off) .pagetop a:visited {
+  color: var(--hnn-text) !important;
+}
+html:not(.hnn-off) .hnname a:link,
+html:not(.hnn-off) .hnname a:visited,
+html:not(.hnn-off) .topsel a:link,
+html:not(.hnn-off) .topsel a:visited {
+  color: var(--hnn-accent) !important;
+}
+
+/* General text */
+html:not(.hnn-off) td,
+html:not(.hnn-off) .default,
+html:not(.hnn-off) .title,
+html:not(.hnn-off) .subtext,
+html:not(.hnn-off) .subtext td,
+html:not(.hnn-off) .subline,
+html:not(.hnn-off) .comhead,
+html:not(.hnn-off) .yclinks,
+html:not(.hnn-off) font[color="#828282"] {
+  color: var(--hnn-muted) !important;
+}
+html:not(.hnn-off) .admin,
+html:not(.hnn-off) .admin td,
+html:not(.hnn-off) .toptext,
+html:not(.hnn-off) font[color="#000000"],
+html:not(.hnn-off) font[color="#000"],
+html:not(.hnn-off) h1, html:not(.hnn-off) h2, html:not(.hnn-off) h3 {
+  color: var(--hnn-text) !important;
+}
+
+/* Links */
+html:not(.hnn-off) a:link {
+  color: var(--hnn-title) !important;
+}
+html:not(.hnn-off) a:visited {
+  color: var(--hnn-visited) !important;
+}
+html:not(.hnn-off) .subtext a:link,
+html:not(.hnn-off) .subtext a:visited,
+html:not(.hnn-off) .subline a:link,
+html:not(.hnn-off) .subline a:visited,
+html:not(.hnn-off) .comhead a:link,
+html:not(.hnn-off) .comhead a:visited,
+html:not(.hnn-off) .hnmore a:link,
+html:not(.hnn-off) .hnmore a:visited,
+html:not(.hnn-off) .sitestr,
+html:not(.hnn-off) .sitebit a:link,
+html:not(.hnn-off) .sitebit a:visited {
+  color: var(--hnn-muted) !important;
+}
+/* Links in comments stay text-coloured and underlined, like HN does */
+html:not(.hnn-off) .commtext a:link,
+html:not(.hnn-off) .toptext a:link {
+  color: inherit !important;
+}
+html:not(.hnn-off) .commtext a:visited,
+html:not(.hnn-off) .toptext a:visited {
+  color: var(--hnn-visited) !important;
+}
+
+/* Comment fade shades (HN greys out downvoted comments).
+   Each one sits at the same point between text and background as HN's light version. */
+html:not(.hnn-off) .c00, html:not(.hnn-off) .c00 a:link { color: var(--hnn-text) !important; }
+html:not(.hnn-off) .c5a, html:not(.hnn-off) .c5a a:link, html:not(.hnn-off) .c5a a:visited { color: #9b9a93 !important; }
+html:not(.hnn-off) .c73, html:not(.hnn-off) .c73 a:link, html:not(.hnn-off) .c73 a:visited { color: #878580 !important; }
+html:not(.hnn-off) .c82, html:not(.hnn-off) .c82 a:link, html:not(.hnn-off) .c82 a:visited { color: #7a7974 !important; }
+html:not(.hnn-off) .c88, html:not(.hnn-off) .c88 a:link, html:not(.hnn-off) .c88 a:visited { color: #75756f !important; }
+html:not(.hnn-off) .c9c, html:not(.hnn-off) .c9c a:link, html:not(.hnn-off) .c9c a:visited { color: #656460 !important; }
+html:not(.hnn-off) .cae, html:not(.hnn-off) .cae a:link, html:not(.hnn-off) .cae a:visited { color: #575652 !important; }
+html:not(.hnn-off) .cbe, html:not(.hnn-off) .cbe a:link, html:not(.hnn-off) .cbe a:visited { color: #4a4945 !important; }
+html:not(.hnn-off) .cce, html:not(.hnn-off) .cce a:link, html:not(.hnn-off) .cce a:visited { color: #3d3c39 !important; }
+html:not(.hnn-off) .cdd, html:not(.hnn-off) .cdd a:link, html:not(.hnn-off) .cdd a:visited { color: #30302d !important; }
+
+/* Static pages (FAQ, guidelines, Show HN rules, security) use yc.css instead of news.css */
+html:not(.hnn-off) table[bgcolor="#ff6600"] {
+  background: var(--hnn-brand) !important;
+}
+html:not(.hnn-off) td[bgcolor="#fafaf0"],
+html:not(.hnn-off) td[bgcolor="#fafaf0"] td,
+html:not(.hnn-off) td[bgcolor="#fafaf0"] b {
+  color: var(--hnn-text) !important;
+}
+html:not(.hnn-off) .apply a:link,
+html:not(.hnn-off) .apply a:visited {
+  color: var(--hnn-accent) !important;
+}
+
+/* Code blocks */
+html:not(.hnn-off) pre,
+html:not(.hnn-off) code {
+  background: var(--hnn-raised) !important;
+  color: var(--hnn-text) !important;
+  border-radius: 3px;
+}
+
+/* Vote arrows: brighten the grey triangle so it shows up */
+html:not(.hnn-off) .votearrow {
+  filter: brightness(1.7);
+}
+
+/* Forms: reply box, search, login, settings */
+html:not(.hnn-off) input,
+html:not(.hnn-off) textarea,
+html:not(.hnn-off) select {
+  background: var(--hnn-raised) !important;
+  color: var(--hnn-text) !important;
+  border: 1px solid var(--hnn-border) !important;
+}
+html:not(.hnn-off) input[readonly] {
+  background: transparent !important;
+  border: none !important;
+  color: var(--hnn-muted) !important;
+}
+html:not(.hnn-off) input[type="submit"],
+html:not(.hnn-off) button {
+  background: #302f2a !important;
+  color: var(--hnn-text) !important;
+  border: 1px solid var(--hnn-border) !important;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Text selection */
+html:not(.hnn-off) ::selection {
+  background: #ff660055;
+  color: #fff;
+}
